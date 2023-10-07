@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ModelDefinition, MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '../config/config.module';
+// import { ConfigModule } from '../config/config.module';
 @Module({
   // imports: [MongooseModule.forRoot('mongodb://127.0.0.1/learnnestsms')],
   imports: [
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
+      // imports: [ConfigModule],
       useFactory: (ConfigService: ConfigService) => ({
         uri: ConfigService.get('MONGODB_URI'),
       }),
