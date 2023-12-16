@@ -9,7 +9,6 @@ import { Transport } from '@nestjs/microservices';
 async function bootstrap() {
   const app = await NestFactory.create(AuthModule);
   const configService = app.get(ConfigService);
-  console.log("configService in auth service main",configService);
   app.connectMicroservice({
     transport: Transport.TCP,
     options: {
