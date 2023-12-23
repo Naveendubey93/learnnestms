@@ -12,30 +12,31 @@ export class ReservationsService {
     private readonly reservationsRepository: ReservationsRepository,
     @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
   ) {}
-  async create(createReservationDto: CreateReservationDto, userId: string) {
-    this.paymentsService.send('create_charge', createReservationDto.charge)
-    .subscribe(async (response) => {
-     console.log({response});
-      const reservation = this.reservationsRepository.create({
-        ...createReservationDto,
-        timestamp: new Date(),
-        userId,
-      });
-      return reservation;
-    //  console.log({reservation})
-    });
+  // async create(createReservationDto: CreateReservationDto, userId: string) {
+  //   this.paymentsService.send('create_charge', createReservationDto.charge)
+  //   .subscribe(async (response) => {
+  //    console.log({response});
+  //     const reservation = this.reservationsRepository.create({
+  //       ...createReservationDto,
+  //       timestamp: new Date(),
+  //       userId,
+  //     });
+  //     return reservation;
+  //   //  console.log({reservation})
+  //   });
     
-    // _id: '_12assignment',
-    // } as Omit<TDocument, '_id'>);
-  }
-  async create1(
-    createReservationDto: CreateReservationDto,
-    { email, _id: userId }: UserDto,
+  //   // _id: '_12assignment',
+  //   // } as Omit<TDocument, '_id'>);
+  // }
+  async create(
+    createReservationDto: CreateReservationDto, userId: string
+    // { email, _id: userId }: UserDto, 
   ) {
     return this.paymentsService
       .send('create_charge', {
         ...createReservationDto.charge,
-        email,
+        timestamp: new Date(),
+        userId,
       })
       .pipe(
         map((res) => {
